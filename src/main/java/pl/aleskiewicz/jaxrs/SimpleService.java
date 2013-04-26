@@ -46,7 +46,7 @@ public enum SimpleService {
             // try {
             // OutboundJaxrsResponse validResponse = OutboundJaxrsResponse.from(simpleResponse);
             // validResponse.getContext().setEntityAnnotations(
-            // SimpleResource.class.getMethod("subscribeForActivity", AsyncResponse.class, String.class)
+            // SimpleResource.class.getMethod("async", AsyncResponse.class, int.class)
             // .getAnnotations());
             // ar.resume(validResponse);
             // } catch (NoSuchMethodException | SecurityException e) {
