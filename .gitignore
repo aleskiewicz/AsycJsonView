@@ -1,6 +1,29 @@
-*.class
+#################
+## Eclipse
+#################
 
-# Package Files #
-*.jar
-*.war
-*.ear
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+## Gradle
+.gradle/
+build/
+
+## NetBeans
+nbproject
+
+## WebStorm
+.idea
+
+
