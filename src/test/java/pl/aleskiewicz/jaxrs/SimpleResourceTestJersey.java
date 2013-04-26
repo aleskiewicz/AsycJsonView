@@ -27,11 +27,6 @@ public class SimpleResourceTestJersey extends JerseyTest {
 
     @Override
     protected ResourceConfig configure() {
-        // mvn test
-        // -DargLine="-Djersey.config.test.containerFactory=org.glassfish.jersey.test.inmemory.InMemoryTestContainerFactory"
-        // mvn test
-        // -DargLine="-Djersey.config.test.containerFactory=org.glassfish.jersey.test.grizzly.GrizzlyTestContainerFactory"
-
         enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);
         return new SimpleApplication();
@@ -88,9 +83,9 @@ public class SimpleResourceTestJersey extends JerseyTest {
 
         _logger.debug("make call {}", resourceTarget.getUri());
         String serverResponse = resourceTarget.request(MediaType.APPLICATION_JSON).get(String.class);
+        _logger.debug("result {}", serverResponse);
         Assert.assertTrue("Actual result: " + serverResponse, serverResponse.contains("\"detailedInfo\""));
         Assert.assertFalse("Actual result: " + serverResponse, serverResponse.contains("\"standardInfo\""));
-        _logger.debug("result {}", serverResponse);
     }
 
     @Test()
