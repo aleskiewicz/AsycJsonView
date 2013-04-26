@@ -3,10 +3,11 @@ package pl.aleskiewicz.jaxrs;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonView;
+
 import pl.aleskiewicz.jaxrs.JsonViews.DetailsWebView;
 import pl.aleskiewicz.jaxrs.JsonViews.WebView;
 
-import com.fasterxml.jackson.annotation.JsonView;
 
 public class SimpleEntry {
 

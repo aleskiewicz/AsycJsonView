@@ -13,10 +13,11 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.map.annotate.JsonView;
+
 import pl.aleskiewicz.jaxrs.JsonViews.DetailsWebView;
 import pl.aleskiewicz.jaxrs.JsonViews.WebView;
 
-import com.fasterxml.jackson.annotation.JsonView;
 
 @Path("simple")
 public class SimpleResource {
