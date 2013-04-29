@@ -52,4 +52,9 @@ public class SimpleEntry {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "SimpleEntry [standardInfo=" + standardInfo + ", detailedInfo=" + detailedInfo + ", date=" + date + "]";
+    }
+
 }

@@ -1,13 +1,17 @@
 package pl.aleskiewicz.jaxrs;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.client.InvocationCallback;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
@@ -30,6 +34,12 @@ public class SimpleResourceTestJersey extends JerseyTest {
         enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);
         return new SimpleApplication();
+    }
+
+    @Override
+    protected void configureClient(ClientConfig clientConfig) {
+        clientConfig.register(new JacksonFeature());
+        super.configureClient(clientConfig);
     }
     private static final Logger _logger = LoggerFactory.getLogger(SimpleResourceTestJersey.class.getName());
 
@@ -69,7 +79,6 @@ public class SimpleResourceTestJersey extends JerseyTest {
             Assert.assertFalse("Actual result: " + serverResponse,
                     serverResponse[0].contains("\"standardInfo\":\"new\""));
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -100,5 +109,23 @@ public class SimpleResourceTestJersey extends JerseyTest {
         _logger.debug("result {}", serverResponse);
         Assert.assertFalse("Actual result: " + serverResponse, serverResponse.contains("\"detailedInfo\""));
         Assert.assertTrue("Actual result: " + serverResponse, serverResponse.contains("\"standardInfo\""));
+    }
+
+    @Test()
+    public void getSyncObject() {
+        final WebTarget resourceTarget = target().path(
+                UriBuilder.fromResource(SimpleResource.class)
+                .path(SimpleResource.class, "sync").build()
+                .getPath());
+        _logger.debug("make call {}", resourceTarget.getUri());
+        GenericType<List<SimpleEntry>> genericEntryListType = new GenericType<List<SimpleEntry>>() {
+        };
+
+        List<SimpleEntry> serverResponse = resourceTarget.request(MediaType.APPLICATION_JSON).get(
+                genericEntryListType);
+        _logger.debug("result {}", serverResponse);
+        Assert.assertTrue("Actual result: " + serverResponse, serverResponse.size() > 0);
+        Assert.assertTrue("Actual result: " + serverResponse, serverResponse.get(0).getDetailedInfo() == null);
+        Assert.assertTrue("Actual result: " + serverResponse, serverResponse.get(0).getStandardInfo() != null);
     }
 }
