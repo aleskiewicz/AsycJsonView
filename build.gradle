@@ -29,11 +29,14 @@ jar {
 }
 
 repositories {
+    maven {
+        url 'https://maven.java.net/content/repositories/snapshots/'
+    }
     mavenCentral()
 }
 
 dependencies {
-    def jerseyVersion = '2.0+'
+    def jerseyVersion = '2.5-SNAPSHOT'
     compile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
     compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
@@ -42,8 +45,8 @@ dependencies {
     compile 'org.slf4j:slf4j-log4j12:1.7.+'
     
     
-    testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.0+'
-    testCompile 'org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:2.0+'
+    testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jerseyVersion"
+    testCompile "org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:$jerseyVersion"
     testCompile 'javax.servlet:javax.servlet-api:3.1+'
     testCompile 'junit:junit:4.11+'
 }
